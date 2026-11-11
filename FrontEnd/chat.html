@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0e0d1c">
+<title>پیام‌رسان ققنوس - چت</title>
+<link rel="icon" type="image/jpeg" href="static/images/icon.png">
+<link rel="apple-touch-icon" href="static/images/icon.png">
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="static/css/bootstrap-icons.min.css">
+<link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+<div class="chat-layout">
+  <aside class="sidebar">
+    <div class="side-head">
+      <a href="/" style="text-decoration:none" id="sideProfileLink"><div class="avatar" id="sideProfileAv"></div></a>
+      <div class="side-title">پیام‌رسان ققنوس</div>
+      <button class="icon-btn side-toggle" id="sideToggle" type="button" title="جمع کردن سایدبار" aria-label="جمع/باز کردن سایدبار">
+        <i class="bi bi-layout-split"></i>
+      </button>
+      <button class="icon-btn side-search-btn" id="sideSearchBtn" type="button" title="جستجو" aria-label="جستجو">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+    <div class="search-box">
+      <i class="bi bi-search search-ico"></i>
+      <input class="input" id="searchInput" placeholder="جستجو…">
+      <div class="search-results" id="searchResults"></div>
+    </div>
+    <div class="conv-sections" id="convSections">
+      <div class="conv-section" id="archiveSection" style="display:none">
+        <div class="conv-section-head" data-cat="archive">
+          <span><i class="bi bi-archive"></i> آرشیو</span>
+        </div>
+        <div class="conv-list" id="convListArchive"></div>
+      </div>
+      <div class="conv-section">
+        <div class="conv-section-head" data-cat="dm">
+          <span>پیام‌های خصوصی</span>
+        </div>
+        <div class="conv-list" id="convListDm"></div>
+      </div>
+      <div class="conv-section">
+        <div class="conv-section-head" data-cat="group">
+          <span>گروه‌ها</span>
+        </div>
+        <div class="conv-list" id="convListGroup"></div>
+      </div>
+      <div class="conv-section">
+        <div class="conv-section-head" data-cat="channel">
+          <span>کانال‌ها</span>
+        </div>
+        <div class="conv-list" id="convListChannel"></div>
+      </div>
+    </div>
+    <div class="fab-wrap">
+      <div class="fab-menu" id="fabMenu">
+        <button data-do="message"><i class="bi bi-envelope"></i> پیام جدید</button>
+      </div>
+      <button class="fab" id="fabNew" title="گپ جدید" aria-label="گپ جدید">
+        <i class="bi bi-pencil"></i>
+      </button>
+    </div>
+  </aside>
+
+  <main class="main" id="main">
+    <div class="main-empty" id="mainEmpty">
+      <div class="empty-state">
+        <div class="empty-ico"><i class="bi bi-chat-dots"></i></div>
+        <div class="me-pill">یک گپ رو انتخاب کن</div>
+        <p>یه گفتگو انتخاب کن تا پیام‌ها اینجا بیان</p>
+      </div>
+    </div>
+
+    <section class="msgs-pane" id="msgsPane">
+      <div class="chat-head">
+        <button class="icon-btn btn-back" id="btnBackChat" title="بازگشت">
+          <i class="bi bi-chevron-right"></i>
+        </button>
+        <div class="head-id" id="chatHeadId" title="تنظیمات و اطلاعات گپ">
+          <div class="avatar" id="chatHeadAvatar"></div>
+          <div class="t">
+            <b id="chatHeadName"></b>
+            <small id="chatHeadSub"></small>
+          </div>
+        </div>
+        <button class="icon-btn" id="btnChatMenu" title="گزینه‌ها" aria-label="گزینه‌ها">
+          <i class="bi bi-three-dots"></i>
+        </button>
+      </div>
+      <div class="pane-top-overlays">
+        <div class="chat-search" id="chatSearch" style="display:none">
+          <input class="input" id="chatSearchInput" placeholder="جستجو در پیام‌های این گپ…">
+          <span class="cs-count" id="chatSearchCount"></span>
+          <button class="icon-btn" id="chatSearchPrev" title="قبلی"><i class="bi bi-chevron-up"></i></button>
+          <button class="icon-btn" id="chatSearchNext" title="بعدی"><i class="bi bi-chevron-down"></i></button>
+          <button class="icon-btn" id="chatSearchClose" title="بستن"><i class="bi bi-x-lg"></i></button>
+        </div>
+      </div>
+      <div class="msgs" id="msgs">
+        <div id="msgsBody" style="display:contents"></div>
+      </div>
+      <button class="jump-btn" id="btnJumpBottom" title="رفتن به آخرین پیام" aria-label="رفتن به آخرین پیام">
+        <i class="bi bi-arrow-down-circle"></i>
+      </button>
+      <div class="composer">
+        <div class="attach-preview" id="attachPreview"></div>
+        <div class="composer-row">
+          <div class="composer-tools">
+            <button class="icon-btn" id="btnEmoji" title="ایموجی"><i class="bi bi-emoji-smile"></i></button>
+          </div>
+          <input type="file" id="fileInput" multiple hidden>
+          <textarea class="composer-input" id="msgInput" rows="1" placeholder="پیام…"></textarea>
+          <div class="composer-end">
+            <button class="icon-btn comp-clip" id="btnAttach" title="پیوست، نظرسنجی و پیام صوتی" aria-label="پیوست‌ها"><i class="bi bi-paperclip"></i></button>
+            <button class="send-btn" id="btnSend" title="ارسال">
+              <i class="bi bi-send-fill"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="modal" id="dmModal">
+  <div class="box">
+    <div class="cs-head">
+      <div class="avatar lg" id="dmAvatar"></div>
+      <div class="cs-id">
+        <b id="dmName"></b>
+        <small id="dmUsername"></small>
+      </div>
+    </div>
+    <p class="sub" id="dmStatus"></p>
+    <div class="row">
+      <button class="btn ghost" id="dmClose">بستن</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="chatMenuModal">
+  <div class="box narrow">
+    <button class="modal-x" id="chatMenuClose" title="بستن"><i class="bi bi-x-lg"></i></button>
+    <h3><i class="bi bi-three-dots"></i> گزینه‌ها</h3>
+    <div class="chat-menu-list">
+      <button class="chat-menu-item" id="cmSearch" type="button"><i class="bi bi-search"></i> <span>جستجو در پیام‌ها</span></button>
+      <button class="chat-menu-item" id="cmFirst" type="button"><i class="bi bi-arrow-up-circle"></i> <span>رفتن به اولین پیام</span></button>
+    </div>
+  </div>
+</div>
+
+<div class="attach-menu" id="attachMenu" role="menu">
+  <div class="am-item" data-attach="media" role="menuitem">
+    <span class="am-ico"><i class="bi bi-image"></i></span>
+    <div class="am-txt">عکس و ویدیو<small>از گالری انتخاب کن</small></div>
+  </div>
+  <div class="am-item" data-attach="camera" role="menuitem">
+    <span class="am-ico"><i class="bi bi-camera"></i></span>
+    <div class="am-txt">دوربین<small>حالا عکس یا فیلم بگیر</small></div>
+  </div>
+  <div class="am-item" data-attach="doc" role="menuitem">
+    <span class="am-ico"><i class="bi bi-file-earmark"></i></span>
+    <div class="am-txt">فایل<small>مستند، صوت، آرشیو، کد</small></div>
+  </div>
+</div>
+
+<div class="emoji-panel" id="emojiPanel" style="display:none">
+  <div class="ep-search"><input id="epSearch" type="text" placeholder="جستجوی ایموجی…" autocomplete="off"></div>
+  <div class="ep-tabs" id="epTabs"></div>
+  <div class="ep-body" id="epBody"></div>
+</div>
+
+<div class="media-viewer" id="mediaViewer">
+  <div class="mv-bar">
+    <span class="mv-name" id="mvName"></span>
+    <div class="mv-tools">
+      <button class="mv-btn mv-del" id="mvDelete" title="حذف این عکس" style="display:none"><i class="bi bi-trash"></i></button>
+      <a class="mv-btn" id="mvOpen" href="#" target="_blank" rel="noopener" title="باز کردن در تب جدید"><i class="bi bi-box-arrow-up-right"></i></a>
+      <a class="mv-btn" id="mvDownload" href="#" download title="دریافت"><i class="bi bi-download"></i></a>
+      <button class="mv-btn" id="mvClose" title="بستن"><i class="bi bi-x-lg"></i></button>
+    </div>
+  </div>
+  <button class="mv-nav mv-prev" id="mvPrev" title="قبلی" style="display:none"><i class="bi bi-chevron-right"></i></button>
+  <button class="mv-nav mv-next" id="mvNext" title="بعدی" style="display:none"><i class="bi bi-chevron-left"></i></button>
+  <div class="mv-count" id="mvCount" style="display:none"></div>
+  <div class="mv-stage" id="mvStage"></div>
+</div>
+
+<script src="static/js/api.js"></script>
+<script src="static/js/eggy.js"></script>
+<script src="static/js/emoji-data.js"></script>
+<script src="static/js/chat.js"></script>
+</body>
+</html>

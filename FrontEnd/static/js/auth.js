@@ -75,8 +75,9 @@ btn.textContent = btn.dataset.label;
 }
 
 async function request(endpoint, payload) {
-const res = await fetch(endpoint, {
+const res = await fetch(API_BASE + endpoint, {
 method: 'POST',
+credentials: 'include',
 headers: { 'Content-Type': 'application/json' },
 body: JSON.stringify(payload),
 });
@@ -142,6 +143,9 @@ password: form.password.value,
 });
 if (ok) {
 notify('success', 'ورود موفق', 'با موفقیت وارد شدید');
+setTimeout(() => {
+location.replace('/chat');
+}, 1200);
 } else {
 notify('error', 'خطا', data.error || 'خطایی رخ داد');
 }
