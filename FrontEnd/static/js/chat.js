@@ -432,7 +432,7 @@ function renderMsg(m) {
     if (m.sender_id) {
       return '<div class="sys-msg" data-mid="' + m.id + '"><span>' + esc(m.content) + '</span></div>';
     }
-    return '<div class="sys-msg sys-app" data-mid="' + m.id + '"><span><i class="bi bi-rocket sys-app-ic"></i>پیام‌رسان ققنوس · ' + esc(m.content) + '</span></div>';
+    return '<div class="sys-msg sys-app" data-mid="' + m.id + '"><span><i class="bi bi-rocket sys-app-ic"></i>پیام‌رسان لیتیوم · ' + esc(m.content) + '</span></div>';
   }
   const url = esc(m.file_url || '');
   const fname = esc(m.file_name || '');
