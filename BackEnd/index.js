@@ -1,10 +1,15 @@
 const express = require("express");
 const UserRoutes = require("./routes/UserRoutes.js");
+const cors = require("cors");
 const cookie_parser = require("cookie-parser");
 require("dotenv").config();
 
 let app = express();
 
+app.use(cors({
+	origin: 'http://127.0.0.1:8080',
+	credentials: true
+}))
 app.use((req, res, next) => {
 let origin = req.headers.origin;
 if (origin) {

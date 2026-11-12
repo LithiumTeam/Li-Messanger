@@ -87,7 +87,7 @@ data = await res.json();
 } catch (e) {
 data = {};
 }
-return { ok: res.ok, status: res.status, data };
+return { ok: data.status == "sucsses", status: res.status, data };
 }
 
 document.getElementById('signup-form').addEventListener('submit', async (e) => {
@@ -144,7 +144,7 @@ password: form.password.value,
 if (ok) {
 notify('success', 'ورود موفق', 'با موفقیت وارد شدید');
 setTimeout(() => {
-location.replace('/chat');
+location.replace('/chat.html');
 }, 1200);
 } else {
 notify('error', 'خطا', data.error || 'خطایی رخ داد');
