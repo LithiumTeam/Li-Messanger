@@ -1,4 +1,4 @@
-from flask import FLask,render_template,redirect,session,request
+from flask import Flask,render_template,redirect,session,request
 from dotenv import load_dotenv
 import os
 
@@ -19,3 +19,6 @@ def login():
         return redirect('/')
     action_redirector = request.args.get('action_redirector', '/')
     return render_template('user/login.html',action_redirector=action_redirector)
+
+if __name__ == '__main__':
+    app.run(debug=True)
