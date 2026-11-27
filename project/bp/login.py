@@ -3,9 +3,9 @@ import smtplib, random
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
-apiBlueprint = Blueprint('api', __name__)
+loginBlueprint = Blueprint('api', __name__)
 
-@apiBlueprint.route('/login/send-otp', methods=['POST'])
+@loginBlueprint.route('/login/send-otp', methods=['POST'])
 def apiLogin():
     if session:
         return redirect('/')
@@ -17,7 +17,7 @@ def apiLogin():
         with open('../../data.txt') as file:
             data = file.readlines()
             senderEmail,appPassword = data[0],data[1]
-        code = random.randint(1000,9999)
+        code = str(random.randint(1000,9999))
         msg = MIMEMultipart()
         msg['From'] = senderEmail
         msg['To'] = email
@@ -39,4 +39,19 @@ def apiLogin():
         return jsonify({
             'success':False,
             'message':'خطا در ارسال ایمیل.'
+        })
+
+@loginBlueprint.route('/login/confirm', methods=['POST'])
+def apiLoginConfirm():
+    code = request.form.get('code','')
+    if session['code'] == code:
+        session['login'] = True
+        return jsonify({
+            'success':True,
+            'message':'با موفقیت وارد حساب خود شدید!'
+        })
+    else:
+        return jsonify({
+            'success':False,
+            'message':'کد وارد شده نامعتبر است'
         })
