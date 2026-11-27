@@ -19,7 +19,7 @@
 
 <p>
 This project is licensed under the
-<strong>GNU General Public License v3.0</strong>.
+<strong>GNU General Public License v2.0</strong>.
 </p>
 
 <p>
